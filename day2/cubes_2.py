@@ -34,21 +34,21 @@ def find_fewest_cubes(game_str):
         if c == "b":
             if curr_num > blue:
                 blue = curr_num
-            i += 4 # Fast-forward to end of "blue " 
+            i += 4 # Fast-forward to end of "blue," 
             curr_num = ""
 
         # Check red:
         if c == "r":
             if curr_num > red:
                 red = curr_num
-            i += 3 # Fast-forward to end of "red "
+            i += 3 # Fast-forward to end of "red,"
             curr_num = ""
 
         # Check green:
         if c == "g":
             if curr_num > green:
                 green = curr_num
-            i += 5 # Fast-forward to end of "green "
+            i += 5 # Fast-forward to end of "green,"
             curr_num = ""
 
         i += 1
