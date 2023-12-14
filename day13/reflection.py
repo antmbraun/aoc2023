@@ -3,19 +3,29 @@ with open('input.txt') as f:
 
 result = 0
 
-def find_lines_before_reflection(matrix):
-  back = 1
-  r = 1
-  while r < len(matrix):
-    if matrix[r] == matrix[r - back]:
-      line_of_reflection = r
-    while matrix[r] == matrix[r - back]:
-      back += 2
-      r += 1
-      if r == len(matrix) or r - back <0:
-        return line_of_reflection
-    back = 1
-    r += 1
+def is_smudge_mirror(above, below):
+    
+    smudges = 0
+    for r in range(len(above)):
+      for c in range(len(above[0])):
+        if above[r][c] != below[r][c]:
+          smudges += 1
+          if smudges > 1:
+            return False
+    if smudges == 1:
+      return True
+    else:
+      return False
+
+def find_mirror(matrix):
+  for row in range(1, len(matrix)):
+    above = matrix[:row][::-1]
+    below = matrix[row:]
+    above = above[:len(below)]
+    below = below[:len(above)]
+    
+    if is_smudge_mirror(above, below):
+      return row
   return 0
 
 for pattern in patterns:
@@ -32,6 +42,8 @@ for pattern in patterns:
       char = rows[r][c]
       cols[c] += char
 
-  result += find_lines_before_reflection(rows) * 100 + find_lines_before_reflection(cols)
+  result += find_mirror(rows) * 100 + find_mirror(cols)
+  # if result == 0:
+  #   print(pattern)
 
 print(result)
